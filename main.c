@@ -37,11 +37,16 @@ int main(void)
     char out[BUF_OUT];
     int len = 0;
 
-    while (exit_code == SUCCESS_CODE)
-    {
-        exit_code = handle_request(client_socket, &len, out);
-        send(client_socket, out, len, 0);
-    }
+    // while (exit_code == SUCCESS_CODE)
+    // {
+    exit_code = handle_request(client_socket, &len, out);
+
+    // printf("main: exit_code=%d, len=%d, out='%.*s'\n",
+    //    exit_code, len, len, out); 
+
+    if (exit_code == SUCCESS_CODE)
+        exit_code = send(client_socket, out, len, 0);
+    // }
 
     close(client_socket);
     close(server_socket);   

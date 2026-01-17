@@ -19,7 +19,7 @@ status_t recv_line(int client_socket, char *buf, size_t maxlen)
     {
         count = recv(client_socket, &c, 1, 0);
         if (count <= 0)
-            exit_code = ERR_SOCKET;
+            return ERR_SOCKET;
         else if (c == '\n')
             is_parsing = false;
         else
@@ -40,17 +40,21 @@ status_t handle_request(int client_socket, int *len, char *out)
     char sarg2[BUF_ARG];
     double result = 0.0;
 
-    if (recv_line(client_socket, cmd,  BUF_CMD) <= 0) 
+    if (recv_line(client_socket, cmd,  BUF_CMD) != SUCCESS_CODE) 
         exit_code = ERR_SOCKET;
-    else if (recv_line(client_socket, sarg1, BUF_ARG) <= 0) 
+    else if (recv_line(client_socket, sarg1, BUF_ARG) != SUCCESS_CODE) 
         exit_code = ERR_SOCKET;
-    else if (recv_line(client_socket, sarg2, BUF_ARG) <= 0)
+    else if (recv_line(client_socket, sarg2, BUF_ARG) != SUCCESS_CODE)
         exit_code = ERR_SOCKET;
+    
+    // printf("CMD: '%s'\n", cmd);
+    // printf("ARG1: '%s'\n", sarg1);
+    // printf("ARG2: '%s'\n", sarg2);
 
     if (exit_code == SUCCESS_CODE)
     {
-        double a = atoi(sarg1);
-        double b = atoi(sarg2);
+        double a = atof(sarg1);
+        double b = atof(sarg2);
         
         if (strcmp(cmd, "fadd") == 0)
             exit_code = fpu_add(a, b, &result);
@@ -66,6 +70,7 @@ status_t handle_request(int client_socket, int *len, char *out)
             exit_code = ERR_NOT_FOUND;
     }
 
+    // printf("exit_code=%d, result=%.10g\n", exit_code, result);
     if (exit_code == SUCCESS_CODE)
         *len = snprintf(out, BUF_OUT, "%.10g\n", result);
 
