@@ -24,6 +24,13 @@ typedef struct
     char key[INT_HASH_SIZE]; // ключ
     long long result; // значение
     int flag; // занято или нет
-} int_cach_t;
+} int_cache_t;
+
+status_t int_sum(long long a, long long b, long long *result);
+status_t int_sub(long long a, long long b, long long *result);
+status_t int_mult(long long a, long long b, long long *result);
+status_t int_div(long long a, long long b, long long *result);
+status_t int_cmp(long long a, long long b, long long *result);
+status_t int_neg(long long a, long long *result);
 
 #endif
