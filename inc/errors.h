@@ -10,7 +10,8 @@ typedef enum
     ERR_ARGS,
     ERR_CACHE,
     ERR_RANGE,
-    ERR_NOT_FOUND
+    ERR_NOT_FOUND,
+    ERR_CONNECTION
 } status_t;
 
 #endif
