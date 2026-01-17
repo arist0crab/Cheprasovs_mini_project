@@ -24,6 +24,21 @@ addii 123 465
 - fsinX
 - fcmpXY
 
+## ALU
+
+Список команд:
+int_sum
+
+int_sub
+
+int_mult
+
+int_div
+
+int_comp
+
+int_neg
+
 ### Сигнатуры функций:
 
 ``` c
