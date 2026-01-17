@@ -31,8 +31,6 @@ addii 123 465
 #ifndef __ERRORS_H__
 #define __ERRORS_H__
 
-#include <stdio.h>
-
 typedef enum 
 {
     SUCCESS_CODE,
