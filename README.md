@@ -12,6 +12,48 @@ addii 123 465
 
 Если команда является операцией над целыми числами, то управление передается а АЛУ, если команда связана с изменением БД, то, соответственно блоку, который отвечает за БД, если команда связана с работой над ЧПТ (синусы/косинусы), то в FPU.
 
+## FPU
+
+Работает с ЧПТ. Содержит функционал, способный выполнять такие операции, как сложение, вычитание, деление, сравнение двух ЧПТ, а также применение функции sin к данному ЧПТ.
+
+### Сигнатуры функций:
+
+``` c
+/// @brief Adds two floating point numbers together
+/// @param a first floating point number
+/// @param b second floating point number
+/// @param result operation result (floating point number)
+/// @return Exit code
+status_t fpu_add(double a, double b, double *result);
+
+/// @brief Substructs second floating point number from second
+/// @param a first floating point number
+/// @param b second floating point number
+/// @param result operation result (floating point number)
+/// @return Exit code
+status_t fpu_sub(double a, double b, double *result);
+
+/// @brief Divides first floating point number by second
+/// @param a first floating point number
+/// @param b second floating point number
+/// @param result operation result (floating point number)
+/// @return Exit code
+status_t fpu_div(double a, double b, double *result);
+
+/// @brief Applies sin func to the floating point number
+/// @param a floating point number (arg)
+/// @param result func result (floating point number)
+/// @return Exit code
+status_t fpu_sin(double a, double *result);
+
+/// @brief Checks which one floating point number is bigger 
+/// @param a first floating point number
+/// @param b second floating point number
+/// @param result operation result: -1, if first < second. 0, if first == second. 1, if first > second (integer)
+/// @return Exit code
+status_t fpu_cmp(double a, double b, int *result);
+```
+
 ## База данных
 
 Схема взаимодействия с БД:
