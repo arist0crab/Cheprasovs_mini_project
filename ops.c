@@ -61,7 +61,10 @@ status_t fpu_div(double a, double b, double *result)
 {
     status_t exit_code = SUCCESS_CODE;
 
-    if (!fpu_cache_search(FPU_OP_DIV, a, b, result))
+    if (fabs(b) < EPS)
+        exit_code = ERR_RANGE;
+
+    else if (!fpu_cache_search(FPU_OP_DIV, a, b, result))
     {
         *result = a / b;
         fpu_cache_store(FPU_OP_DIV, a, b, *result);

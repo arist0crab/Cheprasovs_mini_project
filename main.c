@@ -15,7 +15,7 @@
 int main(void)
 {
     status_t exit_code = SUCCESS_CODE;
-    char server_message[MAX_MESSAGE_LENGTH] = "FPU server was reached! <3\n";
+    // char server_message[MAX_MESSAGE_LENGTH] = "FPU server was reached! <3\n";
 
     int server_socket = socket(AF_INET, SOCK_STREAM, 0);
 
@@ -24,23 +24,25 @@ int main(void)
     addr.sin_addr.s_addr = htonl(INADDR_ANY);
     addr.sin_port = htons(9002);
 
-    bind(server_socket, (struct sockaddr*) &addr, sizeof(addr));
+    int check1 = bind(server_socket, (struct sockaddr*) &addr, sizeof(addr));
+    printf("BIND EC: %d\n", check1);
 
     listen(server_socket, CLIENTS_QUANTITY);
 
     int client_socket = accept(server_socket, NULL, NULL);
-
-    send(client_socket, server_message, sizeof(server_message), 0);
 
     fpu_init();
 
     char out[BUF_OUT];
     int len = 0;
 
-    exit_code = handle_request(client_socket, &len, out);
+    while (exit_code == SUCCESS_CODE)
+    {
+        exit_code = handle_request(client_socket, &len, out);
 
-    if (exit_code == SUCCESS_CODE)
-        exit_code = send(client_socket, out, len, 0);
+        if (exit_code == SUCCESS_CODE)
+            exit_code = send(client_socket, out, len, 0);
+    }
 
     close(client_socket);
     close(server_socket);   
