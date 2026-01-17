@@ -46,10 +46,6 @@ status_t handle_request(int client_socket, int *len, char *out)
         exit_code = ERR_SOCKET;
     else if (recv_line(client_socket, sarg2, BUF_ARG) != SUCCESS_CODE)
         exit_code = ERR_SOCKET;
-    
-    // printf("CMD: '%s'\n", cmd);
-    // printf("ARG1: '%s'\n", sarg1);
-    // printf("ARG2: '%s'\n", sarg2);
 
     if (exit_code == SUCCESS_CODE)
     {
@@ -70,7 +66,6 @@ status_t handle_request(int client_socket, int *len, char *out)
             exit_code = ERR_NOT_FOUND;
     }
 
-    // printf("exit_code=%d, result=%.10g\n", exit_code, result);
     if (exit_code == SUCCESS_CODE)
         *len = snprintf(out, BUF_OUT, "%.10g\n", result);
 
