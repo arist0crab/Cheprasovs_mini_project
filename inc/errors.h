@@ -8,6 +8,7 @@ typedef enum
     ERR_IO,
     ERR_MEM,
     ERR_ARGS,
+    ERR_CACHE,
     ERR_RANGE,
     ERR_NOT_FOUND
 } status_t;
